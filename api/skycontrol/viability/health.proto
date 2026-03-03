@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package helloworld.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "sc_gateway/api/skycontrol/viability;viability";
+
+service Viability {
+  rpc Health(google.protobuf.Empty) returns (HealthReply) {
+    option (google.api.http) = {
+      get: "/api/v1/health"
+    };
+  }
+}
+
+message HealthReply {
+  string gateway_status = 1;
+  string gateway_uptime = 2;
+
+  string auth_status = 3;
+  string auth_db_status = 4;
+  string auth_uptime = 5;
+
+  string telemetry_status = 6;
+  string telemetry_db_status = 7;
+  string telemetry_uptime = 8;
+}
+

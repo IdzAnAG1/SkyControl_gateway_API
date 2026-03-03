@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package common;
+
+option go_package = "SkyControl_gateway_API/api/common/v1;v1";
+
+enum ErrorReason {
+  SERVICE_NOT_FOUND = 0;
+  SERVICE_UNAVAILABLE = 1;
+}
