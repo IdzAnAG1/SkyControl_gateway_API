@@ -20,7 +20,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Viability_Health_FullMethodName = "/helloworld.v1.Viability/Health"
+	Viability_Health_FullMethodName = "/viability.Viability/Health"
+	Viability_Ready_FullMethodName  = "/viability.Viability/Ready"
 )
 
 // ViabilityClient is the client API for Viability service.
@@ -28,6 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ViabilityClient interface {
 	Health(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*HealthReply, error)
+	Ready(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ReadinessReply, error)
 }
 
 type viabilityClient struct {
@@ -48,11 +50,22 @@ func (c *viabilityClient) Health(ctx context.Context, in *emptypb.Empty, opts ..
 	return out, nil
 }
 
+func (c *viabilityClient) Ready(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ReadinessReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReadinessReply)
+	err := c.cc.Invoke(ctx, Viability_Ready_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ViabilityServer is the server API for Viability service.
 // All implementations must embed UnimplementedViabilityServer
 // for forward compatibility.
 type ViabilityServer interface {
 	Health(context.Context, *emptypb.Empty) (*HealthReply, error)
+	Ready(context.Context, *emptypb.Empty) (*ReadinessReply, error)
 	mustEmbedUnimplementedViabilityServer()
 }
 
@@ -65,6 +78,9 @@ type UnimplementedViabilityServer struct{}
 
 func (UnimplementedViabilityServer) Health(context.Context, *emptypb.Empty) (*HealthReply, error) {
 	return nil, status.Error(codes.Unimplemented, "method Health not implemented")
+}
+func (UnimplementedViabilityServer) Ready(context.Context, *emptypb.Empty) (*ReadinessReply, error) {
+	return nil, status.Error(codes.Unimplemented, "method Ready not implemented")
 }
 func (UnimplementedViabilityServer) mustEmbedUnimplementedViabilityServer() {}
 func (UnimplementedViabilityServer) testEmbeddedByValue()                   {}
@@ -105,16 +121,38 @@ func _Viability_Health_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Viability_Ready_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ViabilityServer).Ready(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Viability_Ready_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ViabilityServer).Ready(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Viability_ServiceDesc is the grpc.ServiceDesc for Viability service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Viability_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "helloworld.v1.Viability",
+	ServiceName: "viability.Viability",
 	HandlerType: (*ViabilityServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Health",
 			Handler:    _Viability_Health_Handler,
+		},
+		{
+			MethodName: "Ready",
+			Handler:    _Viability_Ready_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
