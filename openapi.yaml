@@ -3,10 +3,19 @@
 
 openapi: 3.0.3
 info:
-    title: Viability API
+    title: ""
     version: 0.0.1
 paths:
-    /api/v1/health:
+    /api/v1/auth/register:
+        get:
+            tags:
+                - Auth
+            operationId: Auth_Register
+            responses:
+                "200":
+                    description: OK
+                    content: {}
+    /api/v1/viability/health:
         get:
             tags:
                 - Viability
@@ -17,15 +26,32 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/helloworld.v1.HealthReply'
+                                $ref: '#/components/schemas/viability.HealthReply'
+    /api/v1/viability/ready:
+        get:
+            tags:
+                - Viability
+            operationId: Viability_Ready
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/viability.ReadinessReply'
 components:
     schemas:
-        helloworld.v1.HealthReply:
+        viability.HealthReply:
             type: object
             properties:
                 gatewayStatus:
                     type: string
                 gatewayUptime:
+                    type: string
+        viability.ReadinessReply:
+            type: object
+            properties:
+                status:
                     type: string
                 authStatus:
                     type: string
@@ -40,4 +66,5 @@ components:
                 telemetryUptime:
                     type: string
 tags:
+    - name: Auth
     - name: Viability
