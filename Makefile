@@ -1,6 +1,17 @@
+#######################################################################################################################
+#                                    Environment                                                                    #
+#######################################################################################################################
+
 GOHOSTOS:=$(shell go env GOHOSTOS)
 GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
+REPO=https://github.com/IdzAnAG1/SkyControlAPI_Contracts.git#branch=main
+BUF_GEN=buf generate
+
+
+#######################################################################################################################
+#                              Proto files discovery (OS)                                                           #
+#######################################################################################################################
 
 ifeq ($(GOHOSTOS), windows)
 	#the `find.exe` is different from `find` in bash/shell.
@@ -15,6 +26,11 @@ else
 	API_PROTO_FILES=$(shell find api -name *.proto)
 endif
 
+
+#######################################################################################################################
+#                                    Targets                                                                        #
+#######################################################################################################################
+
 .PHONY: init
 # init env
 init:
@@ -25,29 +41,49 @@ init:
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/google/wire/cmd/wire@latest
 
+
+#######################################################################################################################
+#                              Protobuf: internal config                                                         #
+#######################################################################################################################
+
 .PHONY: config
 # generate internal proto
 config:
 	protoc --proto_path=./internal \
 	       --proto_path=./third_party \
- 	       --go_out=paths=source_relative:./internal \
+	       --go_out=paths=source_relative:./internal \
 	       $(INTERNAL_PROTO_FILES)
+
+
+#######################################################################################################################
+#                                 Protobuf: API                                                                  #
+#######################################################################################################################
 
 .PHONY: api
 # generate api proto
 api:
 	protoc --proto_path=./api \
 	       --proto_path=./third_party \
- 	       --go_out=paths=source_relative:./api \
- 	       --go-http_out=paths=source_relative:./api \
- 	       --go-grpc_out=paths=source_relative:./api \
+	       --go_out=paths=source_relative:./api \
+	       --go-http_out=paths=source_relative:./api \
+	       --go-grpc_out=paths=source_relative:./api \
 	       --openapi_out=fq_schema_naming=true,default_response=false:. \
 	       $(API_PROTO_FILES)
+
+
+#######################################################################################################################
+#                                    Build                                                                           #
+#######################################################################################################################
 
 .PHONY: build
 # build
 build:
 	mkdir -p bin/ && go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/ ./...
+
+
+#######################################################################################################################
+#                           Go generate / dependencies                                                           #
+#######################################################################################################################
 
 .PHONY: generate
 # generate
@@ -55,12 +91,38 @@ generate:
 	go generate ./...
 	go mod tidy
 
+
+#######################################################################################################################
+#                                      All                                                                           #
+#######################################################################################################################
+
 .PHONY: all
 # generate all
 all:
 	make api
 	make config
 	make generate
+
+
+#######################################################################################################################
+#                        Contracts generation (remote buf)                                                        #
+#######################################################################################################################
+
+.PHONY: generate_contracts
+generate_contracts: generate_auth generate_telemetry
+
+# generate auth go files from remote repository which contains .proto contracts using buf
+generate_auth:
+	$(BUF_GEN) "$(REPO)" --template buf.gen.yaml --path proto/auth/v1
+
+# generate telemetry go files from remote repository which contains .proto contracts using buf
+generate_telemetry:
+	$(BUF_GEN) "$(REPO)" --template buf.gen.yaml --path proto/telemetry/v1
+
+
+#######################################################################################################################
+#                  									Help                     									      #
+#######################################################################################################################
 
 # show help
 help:
