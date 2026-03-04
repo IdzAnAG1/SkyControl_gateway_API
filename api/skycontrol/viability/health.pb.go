@@ -23,23 +23,109 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type HealthReply struct {
+type ReadinessReply struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
-	GatewayStatus     string                 `protobuf:"bytes,1,opt,name=gateway_status,json=gatewayStatus,proto3" json:"gateway_status,omitempty"`
-	GatewayUptime     string                 `protobuf:"bytes,2,opt,name=gateway_uptime,json=gatewayUptime,proto3" json:"gateway_uptime,omitempty"`
-	AuthStatus        string                 `protobuf:"bytes,3,opt,name=auth_status,json=authStatus,proto3" json:"auth_status,omitempty"`
-	AuthDbStatus      string                 `protobuf:"bytes,4,opt,name=auth_db_status,json=authDbStatus,proto3" json:"auth_db_status,omitempty"`
-	AuthUptime        string                 `protobuf:"bytes,5,opt,name=auth_uptime,json=authUptime,proto3" json:"auth_uptime,omitempty"`
-	TelemetryStatus   string                 `protobuf:"bytes,6,opt,name=telemetry_status,json=telemetryStatus,proto3" json:"telemetry_status,omitempty"`
-	TelemetryDbStatus string                 `protobuf:"bytes,7,opt,name=telemetry_db_status,json=telemetryDbStatus,proto3" json:"telemetry_db_status,omitempty"`
-	TelemetryUptime   string                 `protobuf:"bytes,8,opt,name=telemetry_uptime,json=telemetryUptime,proto3" json:"telemetry_uptime,omitempty"`
+	Status            string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	AuthStatus        string                 `protobuf:"bytes,2,opt,name=auth_status,json=authStatus,proto3" json:"auth_status,omitempty"`
+	AuthDbStatus      string                 `protobuf:"bytes,3,opt,name=auth_db_status,json=authDbStatus,proto3" json:"auth_db_status,omitempty"`
+	AuthUptime        string                 `protobuf:"bytes,4,opt,name=auth_uptime,json=authUptime,proto3" json:"auth_uptime,omitempty"`
+	TelemetryStatus   string                 `protobuf:"bytes,5,opt,name=telemetry_status,json=telemetryStatus,proto3" json:"telemetry_status,omitempty"`
+	TelemetryDbStatus string                 `protobuf:"bytes,6,opt,name=telemetry_db_status,json=telemetryDbStatus,proto3" json:"telemetry_db_status,omitempty"`
+	TelemetryUptime   string                 `protobuf:"bytes,7,opt,name=telemetry_uptime,json=telemetryUptime,proto3" json:"telemetry_uptime,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
 
+func (x *ReadinessReply) Reset() {
+	*x = ReadinessReply{}
+	mi := &file_skycontrol_viability_health_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReadinessReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadinessReply) ProtoMessage() {}
+
+func (x *ReadinessReply) ProtoReflect() protoreflect.Message {
+	mi := &file_skycontrol_viability_health_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadinessReply.ProtoReflect.Descriptor instead.
+func (*ReadinessReply) Descriptor() ([]byte, []int) {
+	return file_skycontrol_viability_health_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ReadinessReply) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+func (x *ReadinessReply) GetAuthStatus() string {
+	if x != nil {
+		return x.AuthStatus
+	}
+	return ""
+}
+
+func (x *ReadinessReply) GetAuthDbStatus() string {
+	if x != nil {
+		return x.AuthDbStatus
+	}
+	return ""
+}
+
+func (x *ReadinessReply) GetAuthUptime() string {
+	if x != nil {
+		return x.AuthUptime
+	}
+	return ""
+}
+
+func (x *ReadinessReply) GetTelemetryStatus() string {
+	if x != nil {
+		return x.TelemetryStatus
+	}
+	return ""
+}
+
+func (x *ReadinessReply) GetTelemetryDbStatus() string {
+	if x != nil {
+		return x.TelemetryDbStatus
+	}
+	return ""
+}
+
+func (x *ReadinessReply) GetTelemetryUptime() string {
+	if x != nil {
+		return x.TelemetryUptime
+	}
+	return ""
+}
+
+type HealthReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	GatewayStatus string                 `protobuf:"bytes,1,opt,name=gateway_status,json=gatewayStatus,proto3" json:"gateway_status,omitempty"`
+	GatewayUptime string                 `protobuf:"bytes,2,opt,name=gateway_uptime,json=gatewayUptime,proto3" json:"gateway_uptime,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
 func (x *HealthReply) Reset() {
 	*x = HealthReply{}
-	mi := &file_skycontrol_viability_health_proto_msgTypes[0]
+	mi := &file_skycontrol_viability_health_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -51,7 +137,7 @@ func (x *HealthReply) String() string {
 func (*HealthReply) ProtoMessage() {}
 
 func (x *HealthReply) ProtoReflect() protoreflect.Message {
-	mi := &file_skycontrol_viability_health_proto_msgTypes[0]
+	mi := &file_skycontrol_viability_health_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -64,7 +150,7 @@ func (x *HealthReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthReply.ProtoReflect.Descriptor instead.
 func (*HealthReply) Descriptor() ([]byte, []int) {
-	return file_skycontrol_viability_health_proto_rawDescGZIP(), []int{0}
+	return file_skycontrol_viability_health_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *HealthReply) GetGatewayStatus() string {
@@ -81,66 +167,27 @@ func (x *HealthReply) GetGatewayUptime() string {
 	return ""
 }
 
-func (x *HealthReply) GetAuthStatus() string {
-	if x != nil {
-		return x.AuthStatus
-	}
-	return ""
-}
-
-func (x *HealthReply) GetAuthDbStatus() string {
-	if x != nil {
-		return x.AuthDbStatus
-	}
-	return ""
-}
-
-func (x *HealthReply) GetAuthUptime() string {
-	if x != nil {
-		return x.AuthUptime
-	}
-	return ""
-}
-
-func (x *HealthReply) GetTelemetryStatus() string {
-	if x != nil {
-		return x.TelemetryStatus
-	}
-	return ""
-}
-
-func (x *HealthReply) GetTelemetryDbStatus() string {
-	if x != nil {
-		return x.TelemetryDbStatus
-	}
-	return ""
-}
-
-func (x *HealthReply) GetTelemetryUptime() string {
-	if x != nil {
-		return x.TelemetryUptime
-	}
-	return ""
-}
-
 var File_skycontrol_viability_health_proto protoreflect.FileDescriptor
 
 const file_skycontrol_viability_health_proto_rawDesc = "" +
 	"\n" +
-	"!skycontrol/viability/health.proto\x12\rhelloworld.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\xc9\x02\n" +
+	"!skycontrol/viability/health.proto\x12\tviability\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x96\x02\n" +
+	"\x0eReadinessReply\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12\x1f\n" +
+	"\vauth_status\x18\x02 \x01(\tR\n" +
+	"authStatus\x12$\n" +
+	"\x0eauth_db_status\x18\x03 \x01(\tR\fauthDbStatus\x12\x1f\n" +
+	"\vauth_uptime\x18\x04 \x01(\tR\n" +
+	"authUptime\x12)\n" +
+	"\x10telemetry_status\x18\x05 \x01(\tR\x0ftelemetryStatus\x12.\n" +
+	"\x13telemetry_db_status\x18\x06 \x01(\tR\x11telemetryDbStatus\x12)\n" +
+	"\x10telemetry_uptime\x18\a \x01(\tR\x0ftelemetryUptime\"[\n" +
 	"\vHealthReply\x12%\n" +
 	"\x0egateway_status\x18\x01 \x01(\tR\rgatewayStatus\x12%\n" +
-	"\x0egateway_uptime\x18\x02 \x01(\tR\rgatewayUptime\x12\x1f\n" +
-	"\vauth_status\x18\x03 \x01(\tR\n" +
-	"authStatus\x12$\n" +
-	"\x0eauth_db_status\x18\x04 \x01(\tR\fauthDbStatus\x12\x1f\n" +
-	"\vauth_uptime\x18\x05 \x01(\tR\n" +
-	"authUptime\x12)\n" +
-	"\x10telemetry_status\x18\x06 \x01(\tR\x0ftelemetryStatus\x12.\n" +
-	"\x13telemetry_db_status\x18\a \x01(\tR\x11telemetryDbStatus\x12)\n" +
-	"\x10telemetry_uptime\x18\b \x01(\tR\x0ftelemetryUptime2a\n" +
-	"\tViability\x12T\n" +
-	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x1a.helloworld.v1.HealthReply\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/api/v1/healthB/Z-sc_gateway/api/skycontrol/viability;viabilityb\x06proto3"
+	"\x0egateway_uptime\x18\x02 \x01(\tR\rgatewayUptime2\xc4\x01\n" +
+	"\tViability\x12Z\n" +
+	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x16.viability.HealthReply\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/v1/viability/health\x12[\n" +
+	"\x05Ready\x12\x16.google.protobuf.Empty\x1a\x19.viability.ReadinessReply\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/api/v1/viability/readyB/Z-sc_gateway/api/skycontrol/viability;viabilityb\x06proto3"
 
 var (
 	file_skycontrol_viability_health_proto_rawDescOnce sync.Once
@@ -154,16 +201,19 @@ func file_skycontrol_viability_health_proto_rawDescGZIP() []byte {
 	return file_skycontrol_viability_health_proto_rawDescData
 }
 
-var file_skycontrol_viability_health_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_skycontrol_viability_health_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_skycontrol_viability_health_proto_goTypes = []any{
-	(*HealthReply)(nil),   // 0: helloworld.v1.HealthReply
-	(*emptypb.Empty)(nil), // 1: google.protobuf.Empty
+	(*ReadinessReply)(nil), // 0: viability.ReadinessReply
+	(*HealthReply)(nil),    // 1: viability.HealthReply
+	(*emptypb.Empty)(nil),  // 2: google.protobuf.Empty
 }
 var file_skycontrol_viability_health_proto_depIdxs = []int32{
-	1, // 0: helloworld.v1.Viability.Health:input_type -> google.protobuf.Empty
-	0, // 1: helloworld.v1.Viability.Health:output_type -> helloworld.v1.HealthReply
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 0: viability.Viability.Health:input_type -> google.protobuf.Empty
+	2, // 1: viability.Viability.Ready:input_type -> google.protobuf.Empty
+	1, // 2: viability.Viability.Health:output_type -> viability.HealthReply
+	0, // 3: viability.Viability.Ready:output_type -> viability.ReadinessReply
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -180,7 +230,7 @@ func file_skycontrol_viability_health_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_skycontrol_viability_health_proto_rawDesc), len(file_skycontrol_viability_health_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
