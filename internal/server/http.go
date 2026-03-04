@@ -13,7 +13,7 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, greeter *service.HealthService, logger log.Logger) *http.Server {
+func NewHTTPServer(c *conf.Server, healthChecker *service.HealthService, logger log.Logger) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -45,6 +45,6 @@ func NewHTTPServer(c *conf.Server, greeter *service.HealthService, logger log.Lo
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
-	v1.RegisterViabilityHTTPServer(srv, greeter)
+	v1.RegisterViabilityHTTPServer(srv, healthChecker)
 	return srv
 }
