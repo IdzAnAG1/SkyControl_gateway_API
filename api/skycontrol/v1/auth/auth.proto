@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package auth.http.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "sc_gateway/api/skycontrol/http/auth/v1;auth";
+
+service Auth {
+  rpc Register(google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/register"
+    };
+  }
+}
