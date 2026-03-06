@@ -1,6 +1,7 @@
 package server
 
 import (
+	authv1 "sc_gateway/api/skycontrol/generated/proto/auth/v1"
 	v1 "sc_gateway/api/skycontrol/viability"
 	"sc_gateway/internal/conf"
 	"sc_gateway/internal/service"
@@ -11,7 +12,12 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, greeter *service.HealthService, logger log.Logger) *grpc.Server {
+func NewGRPCServer(
+	c *conf.Server,
+	health *service.HealthService,
+	auth *service.AuthService,
+	logger log.Logger,
+) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			recovery.Recovery(),
@@ -27,6 +33,8 @@ func NewGRPCServer(c *conf.Server, greeter *service.HealthService, logger log.Lo
 		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
 	}
 	srv := grpc.NewServer(opts...)
-	v1.RegisterViabilityServer(srv, greeter)
+	v1.RegisterViabilityServer(srv, health)
+
+	authv1.NewAuthClient()
 	return srv
 }

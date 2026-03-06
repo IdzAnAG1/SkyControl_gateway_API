@@ -3,18 +3,9 @@
 
 openapi: 3.0.3
 info:
-    title: ""
+    title: Viability API
     version: 0.0.1
 paths:
-    /api/v1/auth/register:
-        get:
-            tags:
-                - Auth
-            operationId: Auth_Register
-            responses:
-                "200":
-                    description: OK
-                    content: {}
     /api/v1/viability/health:
         get:
             tags:
@@ -66,5 +57,4 @@ components:
                 telemetryUptime:
                     type: string
 tags:
-    - name: Auth
     - name: Viability
