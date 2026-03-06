@@ -7,6 +7,7 @@
 package authv1
 
 import (
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -265,7 +266,7 @@ var File_proto_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_proto_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x18proto/auth/v1/auth.proto\x12\x12skycontrol.auth.v1\"{\n" +
+	"\x18proto/auth/v1/auth.proto\x12\x12skycontrol.auth.v1\x1a\x1cgoogle/api/annotations.proto\"{\n" +
 	"\x0fRegisterRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x1a\n" +
@@ -283,11 +284,11 @@ const file_proto_auth_v1_auth_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\x12\x1f\n" +
 	"\verr_message\x18\x03 \x01(\tR\n" +
-	"errMessage2\xab\x01\n" +
-	"\x04Auth\x12U\n" +
-	"\bRegister\x12#.skycontrol.auth.v1.RegisterRequest\x1a$.skycontrol.auth.v1.RegisterResponse\x12L\n" +
-	"\x05Login\x12 .skycontrol.auth.v1.LoginRequest\x1a!.skycontrol.auth.v1.LoginResponseB\xec\x01\n" +
-	"\x16com.skycontrol.auth.v1B\tAuthProtoP\x01Z]github.com/IdzAnAG1/SkyControlAPI_gateway_API/api/skycontrol/v1/auth/gen/proto/auth/v1;authv1\xa2\x02\x03SAX\xaa\x02\x12Skycontrol.Auth.V1\xca\x02\x12Skycontrol\\Auth\\V1\xe2\x02\x1eSkycontrol\\Auth\\V1\\GPBMetadata\xea\x02\x14Skycontrol::Auth::V1b\x06proto3"
+	"errMessage2\xec\x01\n" +
+	"\x04Auth\x12w\n" +
+	"\bRegister\x12#.skycontrol.auth.v1.RegisterRequest\x1a$.skycontrol.auth.v1.RegisterResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/api/v1/auth/register\x12k\n" +
+	"\x05Login\x12 .skycontrol.auth.v1.LoginRequest\x1a!.skycontrol.auth.v1.LoginResponse\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/v1/auth/loginB\xc9\x01\n" +
+	"\x16com.skycontrol.auth.v1B\tAuthProtoP\x01Z:sc_gateway/api/skycontrol/v1/auth/gen/proto/auth/v1;authv1\xa2\x02\x03SAX\xaa\x02\x12Skycontrol.Auth.V1\xca\x02\x12Skycontrol\\Auth\\V1\xe2\x02\x1eSkycontrol\\Auth\\V1\\GPBMetadata\xea\x02\x14Skycontrol::Auth::V1b\x06proto3"
 
 var (
 	file_proto_auth_v1_auth_proto_rawDescOnce sync.Once

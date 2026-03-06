@@ -2,11 +2,17 @@ version: v2
 
 managed:
   enabled: true
+  disable:
+    - module: buf.build/googleapis/googleapis
+      file_option: go_package_prefix
   override:
     - file_option: go_package_prefix
-      value: github.com/IdzAnAG1/SkyControlAPI_gateway_API/api/skycontrol/v1/auth/gen
+      value: sc_gateway/api/skycontrol/v1/auth/gen
 
 plugins:
+  - local: protoc-gen-go-http
+    out: ./api/skycontrol/generated
+    opt: paths=source_relative
   - remote: buf.build/protocolbuffers/go
     out: ./api/skycontrol/generated
     opt: paths=source_relative

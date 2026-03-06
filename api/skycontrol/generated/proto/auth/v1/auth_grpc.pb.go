@@ -27,7 +27,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
+	// Register new user in the system
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	// Login user if he registered in the system
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
@@ -63,7 +65,9 @@ func (c *authClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.C
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
 type AuthServer interface {
+	// Register new user in the system
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	// Login user if he registered in the system
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
