@@ -1,6 +1,7 @@
 package server
 
 import (
+	auth "sc_gateway/api/skycontrol/generated/proto/auth/v1"
 	v1 "sc_gateway/api/skycontrol/viability"
 	"sc_gateway/internal/conf"
 	"sc_gateway/internal/service"
@@ -13,7 +14,12 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, healthChecker *service.HealthService, logger log.Logger) *http.Server {
+func NewHTTPServer(
+	c *conf.Server,
+	healthChecker *service.HealthService,
+	authService *service.AuthService,
+	logger log.Logger,
+) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -46,5 +52,6 @@ func NewHTTPServer(c *conf.Server, healthChecker *service.HealthService, logger 
 	}
 	srv := http.NewServer(opts...)
 	v1.RegisterViabilityHTTPServer(srv, healthChecker)
+	auth.RegisterAuthHTTPServer(srv, authService)
 	return srv
 }
