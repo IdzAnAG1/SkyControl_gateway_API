@@ -1,6 +1,7 @@
 package data
 
 import (
+	"fmt"
 	auth "sc_gateway/api/skycontrol/generated/proto/auth/v1"
 	"sc_gateway/internal/conf"
 
@@ -35,7 +36,7 @@ func NewData(c *conf.Data) (*Data, func(), error) {
 	cleanup := func(client *grpc.ClientConn) {
 		err := client.Close()
 		if err != nil {
-			log.Error("failed to close grpc client: %v", err)
+			log.Error(fmt.Sprintf("failed to close grpc client: %v", err))
 		}
 
 		log.Info("closing the data resources")
