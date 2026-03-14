@@ -2,12 +2,14 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"os"
 
 	"sc_gateway/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/config"
+	"github.com/go-kratos/kratos/v2/config/env"
 	"github.com/go-kratos/kratos/v2/config/file"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
@@ -60,6 +62,7 @@ func main() {
 	)
 	c := config.New(
 		config.WithSource(
+			env.NewSource("KRATOS_"),
 			file.NewSource(flagconf),
 		),
 	)
@@ -74,6 +77,7 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Println(bc.Data.Auth.Addr)
 	app, cleanup, err := wireApp(bc.Server, bc.Data, logger)
 	if err != nil {
 		panic(err)
