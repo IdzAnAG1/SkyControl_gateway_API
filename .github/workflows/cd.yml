@@ -1,0 +1,31 @@
+name: cd.yml
+on:
+  workflow_run:
+    workflows: ["ci.yml"]
+    types:
+      - completed
+
+jobs:
+  deployment:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: self-hosted
+    steps:
+      - name: Docker login
+        run: echo ${{ secrets.DOCKER_AT }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+
+      - name: Download config.yaml
+        run: curl -o ${HOME}/config.yaml https://raw.githubusercontent.com/IdzAnAG1/SkyControl_gateway_API/refs/heads/main/configs_example/cfg_ex.yaml.example
+
+      - name: change config.yaml
+        run: |
+          sed -i 's|addr: 127.0.0.1:8080|addr: ${{secrets.AUTH_ADDR}}|g' $HOME/config.yaml
+
+      - name: Drop oldest container
+        run: docker rm -f scgateway || true
+
+      - name: Docker Pull
+        run: docker pull ${{secrets.DOCKER_LOGIN}}/scgateway:latest
+
+      - name: up app container
+        run: docker run -v ~/config.yaml:/data/conf/config.yaml --name scgateway -d -p ${{secrets.PORT}}:${{secrets.AUTH_DOCKER_PORT}} ${{secrets.DOCKER_LOGIN}}/scgateway:latest
+
