@@ -10,6 +10,7 @@ import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"sc_gateway/internal/conf"
+	"sc_gateway/internal/data"
 	"sc_gateway/internal/server"
 	"sc_gateway/internal/service"
 )
@@ -21,11 +22,17 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confServer *conf.Server, data *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
+func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
 	healthService := service.NewHealthService()
 	grpcServer := server.NewGRPCServer(confServer, healthService, logger)
-	httpServer := server.NewHTTPServer(confServer, healthService, logger)
+	dataData, cleanup, err := data.NewData(confData)
+	if err != nil {
+		return nil, nil, err
+	}
+	authService := service.NewAuthService(dataData, logger)
+	httpServer := server.NewHTTPServer(confServer, healthService, authService, logger)
 	app := newApp(logger, grpcServer, httpServer)
 	return app, func() {
+		cleanup()
 	}, nil
 }

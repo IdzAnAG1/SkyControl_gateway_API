@@ -7,6 +7,7 @@ package main
 
 import (
 	"sc_gateway/internal/conf"
+	"sc_gateway/internal/data"
 	"sc_gateway/internal/server"
 	"sc_gateway/internal/service"
 
@@ -17,5 +18,5 @@ import (
 
 // wireApp init kratos application.
 func wireApp(*conf.Server, *conf.Data, log.Logger) (*kratos.App, func(), error) {
-	panic(wire.Build(server.ProviderSet, service.ProviderSet, newApp))
+	panic(wire.Build(server.ProviderSet, data.ProviderSet, service.ProviderSet, newApp))
 }
