@@ -27,5 +27,5 @@ jobs:
         run: docker pull ${{secrets.DOCKER_LOGIN}}/scgateway:latest
 
       - name: up app container
-        run: docker run -v ~/config.yaml:/data/conf/config.yaml --name scgateway -d -p ${{secrets.PORT}}:${{secrets.AUTH_DOCKER_PORT}} ${{secrets.DOCKER_LOGIN}}/scgateway:latest
+        run: docker run -v ~/config.yaml:/data/conf/config.yaml --name scgateway -d -p ${{secrets.PORT}}:8000 ${{secrets.DOCKER_LOGIN}}/scgateway:latest
 
