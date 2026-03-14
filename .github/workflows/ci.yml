@@ -29,16 +29,17 @@ jobs:
       - run: go test -v ./...
 
   build:
+    needs: [golangci-lint, golang-tests]
     name: building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
 
-      - name: docker build
-        run: docker build -t ${{ secrets.DOCKER_LOGIN }}/scgateway:latest .
-
       - name: docker login
         run: echo ${{ secrets.DOCKER_AT }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+
+      - name: docker build
+        run: docker build -t ${{ secrets.DOCKER_LOGIN }}/scgateway:latest .
 
       - name: docker push
         run: docker push ${{ secrets.DOCKER_LOGIN }}/scgateway:latest
