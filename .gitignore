@@ -27,7 +27,6 @@ Thumbs.db
 .DS_Store
 
 # project
-./configs/config.yaml
 *.cert
 *.key
 *.log
@@ -37,3 +36,4 @@ bin/
 .vscode/
 .idea/
 *.swp
+/configs/config.yaml
