@@ -1,0 +1,44 @@
+name: ci.yml
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  golangci-lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.10
+
+  golang-tests:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - run: go test -v ./...
+
+  build:
+    name: building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: docker build
+        run: docker build -t ${{ secrets.DOCKER_LOGIN }}/scgateway:latest .
+
+      - name: docker login
+        run: echo ${{ secrets.DOCKER_AT }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+
+      - name: docker push
+        run: docker push ${{ secrets.DOCKER_LOGIN }}/scgateway:latest
