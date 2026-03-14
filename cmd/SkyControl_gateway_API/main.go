@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"os"
 
 	"sc_gateway/internal/conf"
@@ -66,7 +65,11 @@ func main() {
 			file.NewSource(flagconf),
 		),
 	)
-	defer c.Close()
+	defer func() {
+		if err := c.Close(); err != nil {
+			log.Error(err)
+		}
+	}()
 
 	if err := c.Load(); err != nil {
 		panic(err)
@@ -77,7 +80,6 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(bc.Data.Auth.Addr)
 	app, cleanup, err := wireApp(bc.Server, bc.Data, logger)
 	if err != nil {
 		panic(err)
