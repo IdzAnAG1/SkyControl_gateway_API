@@ -109,16 +109,19 @@ all:
 #######################################################################################################################
 
 .PHONY: generate_contracts
-generate_contracts: generate_auth generate_telemetry
+generate_contracts: auth telemetry platform
 
 # generate auth go files from remote repository which contains .proto contracts using buf
-generate_auth:
+auth:
 	$(BUF_GEN) "$(REPO)" --template buf.gen.yaml --path proto/auth/v1
 
 # generate telemetry go files from remote repository which contains .proto contracts using buf
-generate_telemetry:
+telemetry:
 	$(BUF_GEN) "$(REPO)" --template buf.gen.yaml --path proto/telemetry/v1
 
+# generate platform go files from remote repository which contains .proto contracts using buf
+platform:
+	$(BUF_GEN) "$(REPO)" --template buf.gen.yaml --path proto/platform/v1
 
 #######################################################################################################################
 #                  									Help                     									      #

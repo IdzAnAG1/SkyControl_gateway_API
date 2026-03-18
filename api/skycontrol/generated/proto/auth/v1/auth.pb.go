@@ -92,7 +92,7 @@ func (x *RegisterRequest) GetUsername() string {
 
 type RegisterResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	ErrMessage    string                 `protobuf:"bytes,3,opt,name=err_message,json=errMessage,proto3" json:"err_message,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -129,11 +129,11 @@ func (*RegisterResponse) Descriptor() ([]byte, []int) {
 	return file_proto_auth_v1_auth_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *RegisterResponse) GetUserId() int64 {
+func (x *RegisterResponse) GetUserId() string {
 	if x != nil {
 		return x.UserId
 	}
-	return 0
+	return ""
 }
 
 func (x *RegisterResponse) GetToken() string {
@@ -204,7 +204,7 @@ func (x *LoginRequest) GetPassword() string {
 
 type LoginResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Token         string                 `protobuf:"bytes,2,opt,name=token,proto3" json:"token,omitempty"`
 	ErrMessage    string                 `protobuf:"bytes,3,opt,name=err_message,json=errMessage,proto3" json:"err_message,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -241,11 +241,11 @@ func (*LoginResponse) Descriptor() ([]byte, []int) {
 	return file_proto_auth_v1_auth_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *LoginResponse) GetUserId() int64 {
+func (x *LoginResponse) GetUserId() string {
 	if x != nil {
 		return x.UserId
 	}
-	return 0
+	return ""
 }
 
 func (x *LoginResponse) GetToken() string {
@@ -273,7 +273,7 @@ const file_proto_auth_v1_auth_proto_rawDesc = "" +
 	"\bnickname\x18\x03 \x01(\tR\bnickname\x12\x1a\n" +
 	"\busername\x18\x04 \x01(\tR\busername\"b\n" +
 	"\x10RegisterResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\x12\x1f\n" +
 	"\verr_message\x18\x03 \x01(\tR\n" +
 	"errMessage\"@\n" +
@@ -281,7 +281,7 @@ const file_proto_auth_v1_auth_proto_rawDesc = "" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"_\n" +
 	"\rLoginResponse\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05token\x18\x02 \x01(\tR\x05token\x12\x1f\n" +
 	"\verr_message\x18\x03 \x01(\tR\n" +
 	"errMessage2\xec\x01\n" +
